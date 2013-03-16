@@ -22,6 +22,7 @@ $(document).ready(function(e){
 			}
 		});
 		reservar();
+		$('#historial').on("pageload",function(){ leerHistorial(); })
 	}, false);
 });
 
@@ -32,9 +33,9 @@ function reservar(){
 		window.location.href="#nr2";
 	});
 	$('#nr2 #enviar').tap(function(){
-		var habs = $('#nr2 ul[data-role=listview] li:eq(1)').children('select').val();
-		var pers = $('#nr2 ul[data-role=listview] li:eq(2)').children('select').val();
-		var dias = $('#nr2 ul[data-role=listview] li:eq(3)').children('select').val();
+		var habs = $('#cantH').val();
+		var pers = $('#cantP').val();
+		var dias = $('#cantD').val();
 		var tipo = $('#nr1').attr('tipo');
 		
 		//Comprobar que esté en línea
@@ -46,6 +47,6 @@ function reservar(){
 			//Sincronizar en el Servidor
 			alert('desconectate');
 		}
-		$('#historial').on("pageload",function(){ leerHistorial(); })
+		//$('#historial').on("pageload",function(){ leerHistorial(); })
 	});
 }
