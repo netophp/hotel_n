@@ -25,6 +25,7 @@ function syncSend(habs,pers,dias,tipo,idReserva){
 			pgAlert('Error','Hubo un error al sincronizar las reservaciones');
 		else{
 			pgAlert('Sincronizado','Reserva realizada');
+			if (id!=0)
 			eliminarLocales(idReserva);
 		}
 	});
