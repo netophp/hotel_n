@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.cenet.hotel"
+        version   = "0.0.1">
+    <name>Hotel</name>
+
+    <description>
+        Aplicación de prácitca 1 Sábados.
+    </description>
+
+    <author href="http://igitsoft.com" email="kaayro@gmail.com">
+        Cenet
+    </author>
+
+    <feature name="http://api.phonegap.com/1.0/device" />
+	<feature name="http://api.phonegap.com/1.0/camera" />
+
+    <preference name="phonegap-version" value="2.3.0" />
+    <preference name="orientation"      value="portrait" />
+    <preference name="target-device"    value="universal" />
+    <preference name="fullscreen"       value="true" />
+
+    <icon src="img/logo.jpg" />
+    <icon src="img/logo.jpg"   gap:platform="android"    gap:density="ldpi" />
+    <icon src="img/logo.jpg"   gap:platform="ios"        width="57" height="57" />
+
+    <gap:splash src="img/screen.jpg"  gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="img/screen.jpg"    gap:platform="ios"     width="320" height="480" />
+	
+	<access origin="*" subdomains="true" />
+</widget>
