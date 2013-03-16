@@ -22,7 +22,15 @@ $(document).ready(function(e){
 			}
 		});
 		reservar();
-		$('#historial').on("pageload",function(){ leerHistorial(); })
+		//$('#historial').on("pageload",function(){ leerHistorial(); })
+		$('#historial').tap(function(){ 
+		
+		leerHistorial();
+		});
+		
+		document.addEventListener("online",function(){
+			leerReservas();
+			},false);
 	}, false);
 });
 

@@ -92,3 +92,33 @@ function guardarHistorial(habs,pers,dias){
 		pgAlert('Historial Guardada','Ver en Reservaciones anteriores');
 	});
 }
+
+function eliminarLocales(id){
+	accesoBD().transaction(function(tx){
+		tx.executeSql('DELETE FROM reserva WHERE rId='+id);
+		
+		},function(err){
+		pgAlert('Error al eliminar la Reserva',err.code);
+	},function(){
+		pgAlert('Reserva eliminada','Esperando por conexión a Internet');
+	});
+	}
+	
+function leerReservas(id){
+	accesoBD().transaction(function(tx){
+		tx.executeSql('SELECT * FROM reserva',[],function(tx1,resultados){
+			cant=resultados.rows.length;
+			reg=resultados.rows;
+			for (i=0;i<cant;i++){
+				syncSend(reg.item(i).habitaciones,reg.item(i).personas,reg.item(i).dias,reg.item(i).tipo,reg.item(i).rId);
+				}
+			
+			},function(err){
+		pgAlert('Error SELECT',err.code);
+	});	
+		},function(err){
+		pgAlert('Error TRANSACCIÓN',err.code);
+	},function(){
+		pgAlert('Reserva eliminada','Esperando por conexión a Internet');
+	});
+	}
