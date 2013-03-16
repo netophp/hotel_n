@@ -28,10 +28,10 @@ function iniciarBD(){
 	});
 }
 
-function getId(){
+function getId(tab){
 	var regreso=0;
 	accesoBD().transaction(function(tx){
-		tx.executeSql('SELECT * FROM reserva',[], function(tx1,resultado){
+		tx.executeSql('SELECT * FROM '+tab,[], function(tx1,resultado){
 			regreso = resultado.rows.length;
 			//var registro1=resultado.rows.item(0).rId;
 		}, function(err){
