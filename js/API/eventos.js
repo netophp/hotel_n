@@ -40,7 +40,7 @@ function reservar(){
 		//Comprobar que esté en línea
 		if(!isConnected()){
 			//Guardar localmente
-			guardarReservaciones(getId('reserva'),habs, pers, dias, tipo);
+			guardarReservaciones(habs, pers, dias, tipo);
 			
 		}else{
 			//Sincronizar en el Servidor

@@ -28,11 +28,32 @@ function iniciarBD(){
 	});
 }
 
-function getId(tab){
+function leerHistorial(){
 	var regreso=0;
 	accesoBD().transaction(function(tx){
-		tx.executeSql('SELECT * FROM '+tab,[], function(tx1,resultado){
-			regreso = resultado.rows.length;
+		tx.executeSql('SELECT * FROM historial',[], function(tx1,resultado){
+			largo = resultado.rows.length;
+			if (largo!=0){
+			for(i=0;i<largo;i++){
+				$('#historial div[data-role=content]').append('<div data-role="collapsible-set">'+
+            '<div data-role="collapsible" data-collapsed="true">'+
+                '<h3>'+
+                    resultado.rows.item(i).fecha+
+                '</h3>'+
+                '<strong>Habitaciones:</strong>'+ resultado.rows.item(i).habitaciones +'<br />'+
+                '<strong>Personas:</strong>'+resultado.rows.item(i).personas+'<br />'+
+                '<strong>Estancia:</strong>'+resultado.rows.item(i).dias+'<br />'+
+            '</div>'+
+            
+        '</div>		');
+				
+				}
+			}
+			else
+			{
+			   $('#historial div[data-role=content]').text('<h2>No hay reservas anteriores</h2>');	
+				
+				}
 			//var registro1=resultado.rows.item(0).rId;
 		}, function(err){
 			//alert(err.code);
@@ -42,18 +63,32 @@ function getId(tab){
 	}, function(){
 		//alert('ok');
 	});
-	return regreso+1;
+	//return regreso+1;
 }
 
-function guardarReservaciones(id,habs,pers,dias,tipo){
+function guardarReservaciones(habs,pers,dias,tipo){
 	//Insertar registro en la tabla de reservas
 	var f=new Date();
 	var fecha = f.getDate()+'/'+f.getMonth()+'/'+f.getFullYear();
 	accesoBD().transaction(function(tx){
-		tx.executeSql('INSERT INTO reserva (rId, fecha, habitaciones, personas, dias, tipo) VALUES ('+id+',"'+fecha+'","'+habs+'","'+pers+'","'+dias+'","'+tipo+'")');
-	},function(err){
+		tx.executeSql('INSERT INTO reserva (fecha, habitaciones, personas, dias, tipo) VALUES ("'+fecha+'","'+habs+'","'+pers+'","'+dias+'","'+tipo+'")');
+		guardarHistorial(habs,pers,dias);
+		},function(err){
 		pgAlert('Error al guardar la Reserva',err.code);
 	},function(){
 		pgAlert('Reserva Guardada','Esperando por conexión a Internet');
+	});
+}
+
+function guardarHistorial(habs,pers,dias){
+	//Insertar registro en la tabla de historial
+	var f=new Date();
+	var fecha = f.getDate()+'/'+f.getMonth()+'/'+f.getFullYear();
+	accesoBD().transaction(function(tx){
+		tx.executeSql('INSERT INTO reserva (fecha, habitaciones, personas, dias) VALUES ("'+fecha+'","'+habs+'","'+pers+'","'+dias+'"');
+	},function(err){
+		pgAlert('Error al guardar historial',err.code);
+	},function(){
+		pgAlert('Historial Guardada','Ver en Reservaciones anteriores');
 	});
 }
