@@ -22,15 +22,12 @@ $(document).ready(function(e){
 			}
 		});
 		reservar();
-		//$('#historial').on("pageload",function(){ leerHistorial(); })
-		$('#historial').tap(function(){ 
-		
-		leerHistorial();
+		$('#irHist').tap(function(){
+			leerHistorial();
 		});
-		
-		document.addEventListener("online",function(){
+		document.addEventListener("online", function(){
 			leerReservas();
-			},false);
+		}, false);
 	}, false);
 });
 
@@ -50,12 +47,10 @@ function reservar(){
 		if(!isConnected()){
 			//Guardar localmente
 			guardarReservaciones(habs, pers, dias, tipo);
-			
 		}else{
 			//Sincronizar en el Servidor
-			alert('desconectate');
-			syncSend(habs,pers,);
+			syncSend(habs,pers,dias,tipo,0);
+			guardarHistorial(habs,pers,dias);
 		}
-		//$('#historial').on("pageload",function(){ leerHistorial(); })
 	});
 }
